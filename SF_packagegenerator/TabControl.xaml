@@ -1,0 +1,24 @@
+﻿<Controls:MetroWindow x:Class="SalesforcePackager.TabControl"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+                        xmlns:local="clr-namespace:SalesforcePackager"
+                      Title="TabControl"
+                       Height="670"
+                      MinHeight="600"
+                      MinWidth="1000"
+                      Width="1270">
+    <Grid>
+        <TabControl HorizontalAlignment="Left"
+		    VerticalAlignment="Top"
+            x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" Height="640" Width="1262">
+
+            <!--<TabControl.ContentTemplate>
+                --><!-- this is the body of the TabItem template--><!--
+                <DataTemplate>
+                    <local:InstanceDetailsUserControl  />
+                </DataTemplate>
+            </TabControl.ContentTemplate>-->
+        </TabControl>
+    </Grid>
+</Controls:MetroWindow>

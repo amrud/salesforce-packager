@@ -1,0 +1,51 @@
+﻿<Controls:MetroWindow x:Class="SalesforcePackager.MainWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:tview="clr-namespace:SalesforcePackager.Views"
+                        xmlns:local="clr-namespace:SalesforcePackager"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                      Height="670"
+                      MinHeight="600"
+                      MinWidth="1000"
+                      Width="1270"
+                      BorderBrush="LightSlateGray"
+                      BorderThickness="0.5" 
+                      GlowBrush="Black" 
+                      ResizeMode="CanResizeWithGrip"
+                      NonActiveWindowTitleBrush="White"
+                      WindowMinButtonStyle="{DynamicResource CleanWindowButtonStyle}"
+                      WindowMaxButtonStyle="{DynamicResource CleanWindowButtonStyle}"
+                      WindowCloseButtonStyle="{DynamicResource CleanWindowButtonStyle}"
+                      WindowTitleBrush="White"
+                        SaveWindowPosition="True"
+                      WindowTransitionsEnabled="True"
+                      WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <TabControl 
+            x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        </TabControl>
+    </Grid>
+    <Controls:MetroWindow.Flyouts >
+        <Controls:FlyoutsControl >
+            <Controls:Flyout AnimateOnPositionChange="True" IsModal="True"  Header="Settings" HeaderTemplate="{StaticResource flyoutHeaderSetting}" Position="Right" Theme="Adapt">
+                <local:SettingUserControl />
+            </Controls:Flyout>
+            <Controls:Flyout AnimateOnPositionChange="True" IsModal="True"  Header="About" HeaderTemplate="{StaticResource flyoutHeaderAbout}" Position="Right" Theme="Adapt">
+                <local:AboutUserControl />
+            </Controls:Flyout>
+            <Controls:Flyout AnimateOnPositionChange="True" IsModal="True"  Header="Tools" Position="Right" Theme="Adapt">
+                <local:ToolUserControl />
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands Foreground="Black">
+            <Button Content="settings" Click="btnSetting_Clicked" Foreground="Black" />
+            <Button Content="about" Click="btnAbout_Clicked" Foreground="Black" />
+            <Button Content="tools" Click="btnTool_Click" Foreground="Black" />
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+
+</Controls:MetroWindow>

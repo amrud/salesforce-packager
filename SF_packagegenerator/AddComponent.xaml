@@ -1,0 +1,77 @@
+﻿<Controls:MetroWindow x:Class="SalesforcePackager.AddComponent"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:local="clr-namespace:SalesforcePackager"
+        mc:Ignorable="d"
+        Title="Add Component"  
+                     BorderBrush="LightSlateGray"
+                      BorderThickness="0.5"                         
+                      GlowBrush="Black"  
+                      ShowMaxRestoreButton="False"
+                      WindowCloseButtonStyle="{DynamicResource CleanCloseWindowButtonStyle}"
+                      WindowTitleBrush="White"    
+                      NonActiveWindowTitleBrush="White"
+                      TitleForeground="Black"
+                      ResizeMode="NoResize" 
+                      ShowMinButton="False" 
+                      WindowTransitionsEnabled="True"
+                      x:Name="addComp_Window"
+                      KeyDown="addComp_Window_KeyDown">
+ 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".03*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/> 
+        </Grid.RowDefinitions>
+        <Controls:MetroProgressBar x:Name="pbar" IsIndeterminate="True" Visibility="Hidden" Grid.Row="0" Width="200" Foreground="{DynamicResource AccentColorBrush}"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Stretch" Width="auto" VerticalAlignment="Center">
+            <Label Content="Component Type" Margin="16,0,0,0" Width="120"/>
+            <ComboBox x:Name="comboBox" ItemsSource="{Binding Path=DescribeMetadataObject}" Width="365"
+                  DisplayMemberPath="name"
+                  SelectionChanged="comboBox_SelectionChanged" IsEditable="True" Text="Please Select" />            
+        </StackPanel>
+        <StackPanel x:Name="stackFolderName" Visibility="Collapsed" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Stretch" Width="auto" Margin="0,5,0,0" VerticalAlignment="Center">
+            <Label Content="Folder Name" Margin="16,0,0,0" Width="120"/>
+            <ComboBox x:Name="comboBoxFolder" ItemsSource="{Binding Path=FileProperties}" Width="365"
+                  DisplayMemberPath="fullName"
+                  SelectionChanged="comboBoxFolder_SelectionChanged" IsEditable="True" Text="Please Select Folder" />
+        </StackPanel>
+        <TextBox Grid.Row="3" Padding="10" Margin="0,5,0,0" TextChanged="txtBox_Filter_TextChanged" x:Name="txtBox_Filter" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Filter" BorderThickness="0" Background="WhiteSmoke"/>
+        <DataGrid x:Name="dataGrid" Grid.Row="4" Margin="16,6" Style="{StaticResource AzureDataGrid}" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True"  GridLinesVisibility="None" HeadersVisibility="All" SelectionMode="Extended" SelectionUnit="FullRow" SelectionChanged="dataGrid_SelectionChanged" >
+            <DataGrid.Columns>
+                <!--<DataGridTemplateColumn Header="">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding Path=IsInStock, UpdateSourceTrigger=PropertyChanged}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>-->
+                <DataGridTextColumn Header="Name" Binding="{Binding fullName}" Width="0.3*"/> 
+                <DataGridTextColumn Header="Created Date" Binding="{Binding createdDate}" Width="0.1*"/>
+                <DataGridTextColumn Header="Created By" Binding="{Binding createdByName}" Width="0.2*"/>
+                <DataGridTextColumn Header="Last Modified Date" Binding="{Binding lastModifiedDate}" Width="0.2*"/>
+                <DataGridTextColumn Header="Last Modified By" Binding="{Binding lastModifiedByName}" Width="0.2*"/>
+                
+            </DataGrid.Columns>
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="ToolTip" Value="{Binding fileName}" />
+                </Style>
+            </DataGrid.CellStyle>
+
+        </DataGrid>
+        <Label x:Name="lblEmpty" Grid.Row="4" Content="No components available" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Right" Margin="0,0,10,10">
+            <Button x:Name="btnAdd" Content="Add" Width="70" Margin="5" Click="btnAdd_Click" Style="{DynamicResource AccentedSquareButtonStyle}" BorderBrush="Transparent"/>
+            <Button x:Name="btnCancel" Content="Cancel" Width="70" Margin="5" Click="btnCancel_Click" Style="{DynamicResource SquareButtonStyle}" BorderBrush="Transparent"/>
+        </StackPanel>
+        <Label Grid.Row="5" Margin="5" Width="auto" x:Name="lblSelectedItem" HorizontalAlignment="Left"></Label>
+    </Grid>
+</Controls:MetroWindow>

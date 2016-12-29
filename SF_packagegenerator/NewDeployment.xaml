@@ -1,0 +1,100 @@
+﻿<Controls:MetroWindow x:Class="SalesforcePackager.NewDeployment"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:v="clr-namespace:SalesforcePackager.Validations"
+        xmlns:view="clr-namespace:SalesforcePackager.Views"
+        xmlns:local="clr-namespace:SalesforcePackager"
+        ResizeMode="NoResize"
+                      BorderBrush="LightSlateGray"
+                      BorderThickness="0.5" 
+                      GlowBrush="Black" 
+                      WindowCloseButtonStyle="{DynamicResource CleanCloseWindowButtonStyle}"
+                      WindowTitleBrush="White"    
+                      NonActiveWindowTitleBrush="White"
+                        SaveWindowPosition="True"
+                      ShowMinButton="False"
+                      ShowMaxRestoreButton="False"
+                      WindowTransitionsEnabled="True"
+                      WindowStartupLocation="CenterScreen"
+                      Height="450" Width="400" HorizontalAlignment="Center">
+
+    <Window.Resources> 
+        <ControlTemplate x:Key="validationErrorTemplate">
+            <DockPanel>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                    <Grid Width="12" Height="12">
+                        <Ellipse Width="12" Height="12" 
+            Fill="Red" HorizontalAlignment="Center" 
+            VerticalAlignment="Center"
+                     
+                     ></Ellipse>
+                        <TextBlock Foreground="White" FontWeight="Heavy" 
+            FontSize="8" HorizontalAlignment="Center" 
+            VerticalAlignment="Center" TextAlignment="Center"
+                       ToolTip="{Binding ElementName=ErrorAdorner, 
+                       Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
+                       >X</TextBlock>
+                    </Grid>
+                    <TextBlock Foreground="Red" FontSize="12" Margin="2,0,0,0" 
+                   Text="{Binding ElementName=ErrorAdorner, 
+                   Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
+                   ></TextBlock>
+                </StackPanel>
+                <AdornedElementPlaceholder 
+        x:Name="ErrorAdorner" ></AdornedElementPlaceholder>
+            </DockPanel>
+        </ControlTemplate>
+        <Style x:Key="textBoxInError" TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+        Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                        Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+        <Grid Height="auto">
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".02*"/>
+            <RowDefinition Height="auto"/>
+                <RowDefinition Height=".7*"/>
+                <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Controls:MetroProgressBar x:Name="pbar" IsIndeterminate="True" Grid.Row="0"  Visibility="Collapsed" VerticalAlignment="Top" Height="0" Margin="115,0"/>
+        <Label Content="New Deployment" FontSize="30" Grid.Row="1" Padding="16,0,16,0" />
+        <StackPanel Orientation="Vertical" Grid.Row="2">
+                <TextBox Grid.Row="0" x:Name="txtboxName" Height="23" Margin="16,16,16,4"
+                           VerticalAlignment="Top"  Validation.ErrorTemplate="{StaticResource validationErrorTemplate}" TextChanged="txtboxName_TextChanged" Controls:TextBoxHelper.Watermark="Name" Controls:TextBoxHelper.ClearTextButton="True">
+                    <Binding Path="BoundProperty2" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <v:EmptyValidation />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".5*"/>
+                    <ColumnDefinition Width=".4*"/>
+                    <ColumnDefinition Width=".12*"/>
+                </Grid.ColumnDefinitions>
+                <view:TextBoxEllipsis Grid.Column="0" Margin="16,4,0,4" x:Name="lblProjectPath" Background="LightGray" ToolTipService.ShowOnDisabled="True" BorderBrush="White" Padding="5" BorderThickness="0" IsEllipsisEnabled="True" IsEnabled="False" EllipsisPlacement="Left" />
+                <TextBox Margin="4,4,0,4" Grid.Column="1" x:Name="txtBoxProjectPath" Height="23" 
+                           VerticalAlignment="Top" Controls:TextBoxHelper.Watermark="Folder" Controls:TextBoxHelper.ClearTextButton="True"/>
+                <Button Content="{iconPacks:PackIconMaterial Folder, Height=15}" Background="Transparent" Margin="0,0,6,0" Grid.Column="2" HorizontalAlignment="Right" Width="40" x:Name="btnBrowse" Click="btnBrowse_Click"/>
+            </Grid>
+            <ComboBox Margin="16,4,16,4" x:Name="comboBoxInstances" ItemsSource="{Binding Path=Instance}"
+                  DisplayMemberPath="instanceName"
+                  SelectionChanged="comboBoxInstances_SelectionChanged"/>
+            <TextBox Grid.Row="3" Margin="16,4,16,4" Controls:TextBoxHelper.Watermark="Salesforce URL" Background="LightGray" BorderBrush="White" BorderThickness="0" IsEnabled="False" x:Name="lblUrl"/>
+            </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Right" Margin="0,0,10,10">
+            <Button x:Name="btnSave" Style="{DynamicResource AccentedSquareButtonStyle}" Width="70" Margin="5" Click="btnSave_Click" BorderBrush="Transparent" Content="Save"/>
+            <Button x:Name="btnCancel" Style="{DynamicResource SquareButtonStyle}" Width="70" Margin="5" Click="btnCancel_Click" BorderBrush="Transparent" Content="Cancel" />
+        </StackPanel>
+
+    </Grid>
+</Controls:MetroWindow>
