@@ -3,7 +3,7 @@ Application to generate files for Salesforce ANT deployment
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
+These instructions will get you the installation file of the project and running on your local machine 
 
 ### Prerequisites
 
@@ -19,6 +19,10 @@ Download the setup.zip
 Extract to a folder
 Run setup.exe
 ```
+
+### Development
+
+Download the source code and open in VisualStudio 2015. Nuget will handle all dependencies
 
 ## Built With
 
